@@ -95,4 +95,18 @@ describe("DumbRock", async () => {
     });
     expect(await this.DumbRock.ownerOf(1)).to.equal(this.user.address);
   });
+
+  it("blocks non-owner burn", async () => {
+    await this.MockERC20.connect(this.user).approve(
+      this.DumbRock.address,
+      mintCostBTC
+    );
+    await this.DumbRock.connect(this.user).mintRock(this.user.address, {
+      value: mintCostMatic,
+    });
+
+    await expect(
+      this.DumbRock.connect(this.deployer).burnRock(0)
+    ).to.be.revertedWith("Only owner can burn");
+  });
 });
