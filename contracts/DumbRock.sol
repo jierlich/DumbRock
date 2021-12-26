@@ -11,11 +11,10 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
     @author jierlich
     @notice It's just a dumb rock
 */
-
 contract DumbRock is Ownable, ERC721 {
     address public wbtc;
 
-    // Ether is matic here since deployment is on Polygon
+    /// @notice ether is matic here since deployment will be on Polygon
     uint256 public fee = 4.2 ether;
     /// @notice 0.0021 BTC
     uint256 public btcCost = 210000; 
@@ -29,7 +28,8 @@ contract DumbRock is Ownable, ERC721 {
     function mintRock(address _to) public payable {
         require(msg.value == fee, 'Incorrect fee amount');
         require(count < maxRocks, 'Max mint reached');
-        IERC20(wbtc).transferFrom(msg.sender, address(this), btcCost);
+        bool success = IERC20(wbtc).transferFrom(msg.sender, address(this), btcCost);
+        require(success, "Failed to deposit wBTC");
         _safeMint(_to, count);
         count += 1;
         
@@ -38,7 +38,8 @@ contract DumbRock is Ownable, ERC721 {
     function burnRock(uint256 _tokenId) public {
         require(super.ownerOf(_tokenId) == msg.sender, 'Only owner can burn');
         _burn(_tokenId);
-        IERC20(wbtc).transfer(msg.sender, btcCost);
+        bool success = IERC20(wbtc).transfer(msg.sender, btcCost);
+        require(success, "Failed to withdraww wBTC");
     }
 
     function withdraw() onlyOwner() public {
