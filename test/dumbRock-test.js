@@ -1,3 +1,4 @@
+const { smock } = require("@defi-wonderland/smock");
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 const BN = ethers.BigNumber.from;
@@ -25,10 +26,7 @@ describe("DumbRock", async () => {
     );
     await this.MockERC20.deployed();
 
-    const DumbRockContract = await ethers.getContractFactory(
-      "DumbRock",
-      this.deployer
-    );
+    const DumbRockContract = await smock.mock("DumbRock", this.deployer);
     this.DumbRock = await DumbRockContract.deploy(this.MockERC20.address);
     await this.DumbRock.deployed();
   });
