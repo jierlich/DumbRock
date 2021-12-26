@@ -126,4 +126,38 @@ describe("DumbRock", async () => {
       })
     ).to.be.revertedWith("Max mint reached");
   });
+
+  it("allows only owner withdraw", async () => {
+    // mint
+    await this.MockERC20.connect(this.user).approve(
+      this.DumbRock.address,
+      mintCostBTC
+    );
+
+    await this.DumbRock.connect(this.user).mintRock(this.user.address, {
+      value: mintCostMatic,
+    });
+
+    // non-owner fails withdraw
+    await expect(
+      this.DumbRock.connect(this.user).withdraw()
+    ).to.be.revertedWith("Ownable: caller is not the owner");
+
+    // owner withdraw succeeds
+    const initialBalance = await ethers.provider.getBalance(
+      this.deployer.address
+    );
+
+    const withdrawTx = await this.DumbRock.connect(this.deployer).withdraw();
+    const gasCost = await calculateGasCost(withdrawTx);
+    expect(await ethers.provider.getBalance(this.deployer.address)).to.equal(
+      initialBalance.sub(gasCost).add(mintCostMatic)
+    );
+  });
 });
+
+async function calculateGasCost(txObject) {
+  const receipt = await txObject.wait();
+  const gasUsed = receipt.gasUsed;
+  return gasUsed.mul(txObject.gasPrice);
+}
