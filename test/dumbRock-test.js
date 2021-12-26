@@ -109,4 +109,21 @@ describe("DumbRock", async () => {
       this.DumbRock.connect(this.deployer).burnRock(0)
     ).to.be.revertedWith("Only owner can burn");
   });
+
+  it("limits mint", async () => {
+    await this.DumbRock.setVariable("count", 2099);
+    await this.MockERC20.connect(this.user).approve(
+      this.DumbRock.address,
+      mintCostBTC
+    );
+    await this.DumbRock.connect(this.user).mintRock(this.user.address, {
+      value: mintCostMatic,
+    });
+
+    await expect(
+      this.DumbRock.connect(this.user).mintRock(this.user.address, {
+        value: mintCostMatic,
+      })
+    ).to.be.revertedWith("Max mint reached");
+  });
 });

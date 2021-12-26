@@ -19,7 +19,8 @@ contract DumbRock is Ownable, ERC721 {
     uint256 public fee = 4.2 ether;
     /// @notice 0.0021 BTC
     uint256 public btcCost = 210000; 
-    uint256 public count;
+    uint256 public count = 0;
+    uint256 public maxRocks = 2100;
 
     constructor(address _wbtc) ERC721("DumbRock", "DUMB") {
         wbtc = _wbtc;
@@ -27,7 +28,7 @@ contract DumbRock is Ownable, ERC721 {
 
     function mintRock(address _to) public payable {
         require(msg.value == fee, 'Incorrect fee amount');
-        require(count < 2100, 'Max mint reached');
+        require(count < maxRocks, 'Max mint reached');
         IERC20(wbtc).transferFrom(msg.sender, address(this), btcCost);
         _safeMint(_to, count);
         count += 1;
