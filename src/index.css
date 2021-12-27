@@ -9,9 +9,31 @@ body {
   color: white;
   background-color: rgb(40, 42, 48);
   font-size: 16px;
+  text-align: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.connect-button-container {
+  display: flex;
+  align-items: right;
+  padding-top: 5%;
+  padding-left: 60%;
+}
+
+.externalButton {
+  margin: 5px;
+}
+
+img {
+  width: 220px;
+  height: 283px;
+}
+form {
+  display: inline;
 }
