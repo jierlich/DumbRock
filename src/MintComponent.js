@@ -48,13 +48,21 @@ export default function MintComponent(props) {
       .mintRock(address, { value: ethers.utils.parseUnits("4.2") });
   }
   return (
-    <div className="buttonContainer">
-      <button className="externalButton" onClick={() => approveWBTC()}>
-        approve wBTC
-      </button>
-      <button className="externalButton" onClick={() => mintRock()}>
-        mint dumb rock
-      </button>
+    <div>
+      <form
+        action="https://matcha.xyz/markets/137/0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6"
+        target="_blank"
+      >
+        <button className="externalButton">Buy wBTC</button>
+      </form>
+      <div className="buttonContainer">
+        <button className="externalButton" onClick={() => approveWBTC()}>
+          approve wBTC
+        </button>
+        <button className="externalButton" onClick={() => mintRock()}>
+          mint dumb rock
+        </button>
+      </div>
     </div>
   );
 }
