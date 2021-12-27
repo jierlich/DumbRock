@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { providers } from "ethers";
 import ConnectWalletButton from "./ConnectWalletButton";
 import MainText from "./MainText";
 import MintComponent from "./MintComponent";
@@ -6,10 +7,12 @@ import ExternalButtons from "./ExternalButtons";
 
 function App() {
   const [signer, setSigner] = useState(null);
+  const provider = new providers.Web3Provider(window.ethereum);
 
   return (
     <div className="app">
       <ConnectWalletButton
+        provider={provider}
         sendData={async (val) => {
           setSigner(val);
         }}
