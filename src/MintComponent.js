@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ethers } from "ethers";
 import abi from "./abi";
 
@@ -17,6 +17,8 @@ export default function MintComponent(props) {
     abi.dumbRock,
     props.provider
   );
+
+  setMintCount(props, mintRockContract);
 
   async function approveWBTC() {
     if (!props.signer) {
@@ -65,4 +67,8 @@ export default function MintComponent(props) {
       </div>
     </div>
   );
+}
+
+async function setMintCount(props, mintRockContract) {
+  props.setMintCount(await mintRockContract.count());
 }

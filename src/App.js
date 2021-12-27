@@ -7,6 +7,7 @@ import ExternalButtons from "./ExternalButtons";
 
 function App() {
   const [signer, setSigner] = useState(null);
+  const [mintCount, setMintCount] = useState(0);
   const provider = new providers.Web3Provider(window.ethereum);
 
   return (
@@ -19,8 +20,12 @@ function App() {
       />
       <img src="https://drive.google.com/uc?export=view&id=1Ayjo4JtQFXFm3VMMqAhw1tpffRysDWmA" />
       <MainText />
-      <MintComponent provider={provider} signer={signer} />
-      <p> 15 / 2100 minted</p>
+      <MintComponent
+        provider={provider}
+        signer={signer}
+        setMintCount={setMintCount}
+      />
+      <p> {`${mintCount} / 2100 minted`}</p>
       <ExternalButtons />
     </div>
   );
