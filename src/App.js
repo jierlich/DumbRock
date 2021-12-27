@@ -19,7 +19,7 @@ function App() {
       />
       <img src="https://drive.google.com/uc?export=view&id=1Ayjo4JtQFXFm3VMMqAhw1tpffRysDWmA" />
       <MainText />
-      <MintComponent />
+      <MintComponent provider={provider} signer={signer} />
       <p> 15 / 2100 minted</p>
       <ExternalButtons />
     </div>
