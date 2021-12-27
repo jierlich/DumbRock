@@ -7,7 +7,7 @@ export default function ConnectWalletButton(props) {
     await props.provider.send("eth_requestAccounts", []);
     const signer = props.provider.getSigner();
     const { chainId } = await props.provider.getNetwork();
-    if (chainId != 137) {
+    if (chainId != 137 && chainId != 80001) {
       alert("Please connect to the Polygon network and try again");
       return;
     }
