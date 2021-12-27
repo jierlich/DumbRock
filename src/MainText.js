@@ -7,8 +7,8 @@ export default function MainText() {
         mint a dumb rock by depositing 0.0021 wBTC and paying 4.20 MATIC
         <br />
         <br />
-        u can burn ur dumb rock to retrieve the wBTC later (the kids call call
-        this "backed")
+        u can burn ur dumb rock to retrieve the wBTC later (the kids call this
+        "backed")
         <br />
         <br />
         but why would u do that?
