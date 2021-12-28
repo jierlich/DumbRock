@@ -21,7 +21,7 @@ function App() {
           setSigner(val);
         }}
       />
-      <img src="https://drive.google.com/uc?export=view&id=1Ayjo4JtQFXFm3VMMqAhw1tpffRysDWmA" />
+      <img src="https://dweb.link/ipfs/QmT7ZFKVTzG4ApjBaMmDYYEKL5DJri57Z2DxLmcBNjMmDx" />
       <MainText />
       <MintComponent
         provider={provider}
