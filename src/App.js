@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { providers } from "ethers";
+import { getDefaultProvider, providers } from "ethers";
 import ConnectWalletButton from "./ConnectWalletButton";
 import MainText from "./MainText";
 import MintComponent from "./MintComponent";
@@ -7,8 +7,11 @@ import ExternalButtons from "./ExternalButtons";
 
 function App() {
   const [signer, setSigner] = useState(null);
-  const [mintCount, setMintCount] = useState(0);
-  const provider = new providers.Web3Provider(window.ethereum);
+  const [mintCount, setMintCount] = useState(null);
+
+  const provider = window.ethereum
+    ? new providers.Web3Provider(window.ethereum)
+    : getDefaultProvider();
 
   return (
     <div className="app">
@@ -25,7 +28,11 @@ function App() {
         signer={signer}
         setMintCount={setMintCount}
       />
-      <p> {`${mintCount} / 2100 minted`}</p>
+      <p>
+        {`${
+          mintCount !== null ? mintCount : "install wallet to get count"
+        } / 2100 minted`}
+      </p>
       <ExternalButtons />
     </div>
   );
