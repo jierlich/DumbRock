@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { ethers } from "ethers";
 import abi from "./abi";
 
@@ -18,6 +18,8 @@ export default function MintComponent(props) {
     props.provider
   );
 
+  const [tx, setTx] = useState(null);
+
   setMintCount(props, mintRockContract);
 
   async function approveWBTC() {
@@ -26,9 +28,10 @@ export default function MintComponent(props) {
       return;
     }
 
-    await wbtcContract
+    const approveTx = await wbtcContract
       .connect(props.signer)
       .approve(dumbRockAddress, ethers.BigNumber.from("210000"));
+    setTx(approveTx.hash);
   }
 
   async function mintRock() {
@@ -45,9 +48,10 @@ export default function MintComponent(props) {
       return;
     }
 
-    await mintRockContract
+    const mintTx = await mintRockContract
       .connect(props.signer)
       .mintRock(address, { value: ethers.utils.parseUnits("4.2") });
+    setTx(mintTx.hash);
   }
   return (
     <div>
@@ -65,6 +69,16 @@ export default function MintComponent(props) {
           mint dumb rock
         </button>
       </div>
+      {tx ? (
+        <div>
+          Tx:{" "}
+          <a target="_blank" href={`https://polygonscan.com/tx/${tx}`}>
+            {tx}
+          </a>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
