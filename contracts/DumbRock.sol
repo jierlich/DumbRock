@@ -20,6 +20,7 @@ contract DumbRock is Ownable, ERC721 {
     uint256 public btcCost = 210000; 
     uint256 public count = 0;
     uint256 public maxRocks = 2100;
+    string URI = "ipfs://QmXLw83RKDRPxjZhp3jDbCuvB1cbtHeCazSjnZmEuHduZG";
 
     constructor(address _wbtc) ERC721("DumbRock", "DUMB") {
         wbtc = _wbtc;
@@ -44,5 +45,13 @@ contract DumbRock is Ownable, ERC721 {
 
     function withdraw() onlyOwner() public {
         payable(owner()).transfer(address(this).balance);
+    }
+
+    function baseURI() public view virtual returns (string memory) {
+        return URI;
+    }
+
+    function tokenURI(uint256 /* tokenId */) public view virtual override returns (string memory) {
+        return URI;
     }
 }
