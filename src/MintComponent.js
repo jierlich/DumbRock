@@ -2,8 +2,8 @@ import { useState } from "react";
 import { ethers } from "ethers";
 import abi from "./abi";
 
-const wbtcAddress = "0xe4E6A3613a254e59b5bed845AbEEcEa0FEc13803";
-const dumbRockAddress = "0x15194ACF98d387FC9B89D848BAfE8C4fcc409a62";
+const wbtcAddress = "0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6";
+const dumbRockAddress = "0xe850dD8b9D90F060BCA3A6C7f865228cF6C80062";
 
 export default function MintComponent(props) {
   const wbtcContract = new ethers.Contract(
