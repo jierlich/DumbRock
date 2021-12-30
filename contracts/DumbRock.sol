@@ -31,9 +31,8 @@ contract DumbRock is Ownable, ERC721 {
         require(count < maxRocks, 'Max mint reached');
         bool success = IERC20(wbtc).transferFrom(msg.sender, address(this), btcCost);
         require(success, "Failed to deposit wBTC");
-        _safeMint(_to, count);
         count += 1;
-        
+        _safeMint(_to, count - 1);
     }
 
     function burnRock(uint256 _tokenId) public {
